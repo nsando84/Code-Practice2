@@ -1,16 +1,15 @@
 const expect = require('chai').expect;
-const sinon = require('sinon');
+// const sinon = require('sinon');
 const mongoose = require('mongoose');
-
+require('dotenv').config();
+const URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_DATABASETEST}`
 const User = require('../models/user');
 const FeedController = require('../controllers/feed');
 
 describe('Feed Controller', function() {
   before(function(done) {
     mongoose
-      .connect(
-        'mongodb+srv://maximilian:fmFLrH6d0DjMxWcg@cluster0-ntrwp.mongodb.net/test-messages?retryWrites=true'
-      )
+      .connect(URI)
       .then(result => {
         const user = new User({
           email: 'test@test.com',
